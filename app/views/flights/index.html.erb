@@ -4,25 +4,31 @@
 <form action="/flights" method="get" accept-charset="UTF-8">
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
-    <select name="departure_airport_id">
+    <select name="query[departure_airport_id]">
         <% @airports.each do |airport| %>
             <option value="<%= airport.id %>"><%= airport.code %></option>
         <% end %>
     </select>
 
-    <select name="arrival_airport_id">
+    <select name="query[arrival_airport_id]">
         <% @airports.each do |airport| %>
             <option value="<%= airport.id %>"><%= airport.code %></option>
         <% end %>
     </select>
 
-    <select name="num_tickets">
+    <select name="query[num_tickets]">
         <% (1..4).each do |num| %>
             <option value="<%= num %>"><%= num %></option>
         <% end %>
     </select>
 
-    <%= select_tag(:date, options_for_select(@date_options)) %>
+    <select name ="query[date]">
+        <% @date_options.each do | namval | %>
+            <option value="<%= namval[1] %>"><%= namval[0] %></option>
+        <% end %>
+    </select>
+
+    <%#= select_tag(params[:query][date], options_for_select(@date_options)) %>
 
     <%# Alternate date dropdowns %>
     <%#= select_month(Date.today) %>
