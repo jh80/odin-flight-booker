@@ -1,2 +1,34 @@
-<h1>Flights#index</h1>
-<p>Find me in app/views/flights/index.html.erb</p>
+<h1>Welcome to Flight Booker!</h1>
+
+<%# built without form_with, a basic html form %>
+<form action="/flights" method="get" accept-charset="UTF-8">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+    <select name="departure_airport_id">
+        <% @airports.each do |airport| %>
+            <option value="<%= airport.id %>"><%= airport.code %></option>
+        <% end %>
+    </select>
+
+    <select name="arrival_airport_id">
+        <% @airports.each do |airport| %>
+            <option value="<%= airport.id %>"><%= airport.code %></option>
+        <% end %>
+    </select>
+
+    <select name="num_tickets">
+        <% (1..4).each do |num| %>
+            <option value="<%= num %>"><%= num %></option>
+        <% end %>
+    </select>
+
+    <%= select_tag(:date, options_for_select(@date_options)) %>
+
+    <%# Alternate date dropdowns %>
+    <%#= select_month(Date.today) %>
+    <%#= date_select("flight", "date")%>
+    <%#= datetime_select("flight", "date") %>
+    <%# <select name="> %>
+
+    <input type="submit" value="Search" name="commit">
+</form>
