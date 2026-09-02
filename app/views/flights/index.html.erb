@@ -38,3 +38,23 @@
 
     <input type="submit" value="Search" name="commit">
 </form>
+
+<div class="search_results">
+    <% if @searched_flights %>
+        <% if @searched_flights.empty? %>
+            There are no flights matching your criteria
+        <% else %>
+            <% @searched_flights.each do | flight |%>
+
+                <div class="flight_results">
+                    from: <%= flight.departure_airport.code %> 
+                    to: <%= flight.arrival_airport.code %> 
+                    on: <%= flight.start.strftime("%m/%d/%Y %H:%M")%>
+                    duration: <%= format_duration(flight.duration) %>
+                </div>
+            <% end %>
+        <% end %>
+    <% else %>
+        Look for flights! Where do you want to go?
+    <% end %>        
+</div>

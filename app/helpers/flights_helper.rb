@@ -7,4 +7,17 @@ module FlightsHelper
       end
     dates.uniq
   end
+
+  def format_duration(duration_in_seconds)
+    units = { "hours" => duration_in_seconds/3600,
+              "minutes" => (duration_in_seconds / 60) % 60
+            }
+    units.reduce("") do | memo, (key, value) |
+      if value > 0
+        new = memo + "#{value} #{key} "
+      else
+        memo
+      end
+    end
+  end
 end
